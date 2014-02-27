@@ -1,6 +1,6 @@
 {
   "name": "grunt-bower-seamless-install",
-  "description": "Grunt task to install bower components seamlessly through target requirements.",
+  "description": "Grunt task to install bower components seamlessly through target dependencies.",
   "version": "0.1.0",
   "homepage": "https://github.com/abovethewater/grunt-bower-seamless-install",
   "author": {

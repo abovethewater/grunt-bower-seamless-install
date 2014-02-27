@@ -1,7 +1,7 @@
 /*
- * grunt-bower-install
- * https://github.com/abovethewater/grunt-bower-install
- * Copyright (c) 2013 Joe Mathews
+ * grunt-bower-seamless-install
+ * https://github.com/abovethewater/grunt-bower-seamless-install
+ * Copyright (c) 2014 Joe Mathews
  *
  * Licensed under the MIT license.
  *
