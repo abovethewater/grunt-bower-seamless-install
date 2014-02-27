@@ -1,14 +1,23 @@
 /*
- * grunt-npm-install
- * https://github.com/iclanzan/grunt-npm-install
+ * grunt-bower-seamless-install
+ * https://github.com/abovethewater/grunt-bower-seamless-install
+ * Copyright (c) 2013 Joe Mathews
  *
- * Copyright (c) 2013 Sorin Iclanzan
  * Licensed under the MIT license.
+ *
+ * Master http://abovethewater.mit-license.org/
+ *
+ * Based on grunt-npm-install
+ * https://github.com/iclanzan/grunt-npm-install
+ * Copyright (c) 2013 Sorin Iclanzan
+ *
+ * Licensed under the MIT license.
+ *
  */
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
@@ -16,22 +25,22 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
-      },
+        jshintrc: '.jshintrc'
+      }
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp'],
+      tests: ['bower.json', '.bowerrc', 'tmp']
     },
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js'],
-    },
+      tests: ['test/*_test.js']
+    }
 
   });
 
@@ -43,23 +52,18 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  grunt.registerTask('chdir', 'Change the cwd.', function (path) {
-    console.log('*** Current: ', process.cwd(), ' *** Next: ', path);
-    process.chdir(path);
-  });
-
   grunt.registerTask('write', 'Write content to a file.', grunt.file.write);
+  grunt.registerTask('mkdir', 'Create directory.', grunt.file.mkdir);
 
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
   grunt.registerTask('test', [
     'clean',
-    'write:tmp/package.json:{"name"\\: "fake", "dependencies"\\: {"jassi"\\:""}}',
-    'chdir:tmp',
-    'npm-install',
-    'npm-install:q',
-    'npm-install:lodash:async',
-    'chdir:' + process.cwd(),
+    'mkdir:tmp',
+    'write:bower.json:{"name"\\: "fake", "dependencies"\\: {"underscore"\\:""}}',
+    'write:.bowerrc:{"directory"\\: "tmp/bower_components"}',
+    'bower-install',
+    'bower-install:jquery#1.11.0',
+    'bower-install:q',
+    'bower-install:lodash:async',
     'nodeunit'
   ]);
 

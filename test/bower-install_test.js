@@ -23,13 +23,19 @@ var exists = grunt.file.exists;
     test.ifError(value)
 */
 
-exports.npm_install = {
-  'npm-install': function(test) {
-    test.expect(3);
+exports.bower_install = {
+  'bower-install': function (test) {
+    test.expect(5);
 
-    test.ok(exists('tmp/node_modules/jassi'), 'Dependencies should have been installed.');
-    test.ok(exists('tmp/node_modules/q'), 'Single module sohuld have been installed.');
-    test.ok(exists('tmp/node_modules/lodash') && exists('tmp/node_modules/async'), 'Multiple modules sohuld have been installed.');
+    test.ok(exists('tmp/bower_components/underscore'), 'Component should have been installed.');
+
+    test.ok(exists('tmp/bower_components/jquery'), 'Versioned component should have been installed.');
+
+    var jqBowerFile = grunt.file.readJSON('./tmp/bower_components/jquery/bower.json');
+    test.equal(jqBowerFile.version, '1.11.0');
+
+    test.ok(exists('tmp/bower_components/q'), 'Single component should have been installed.');
+    test.ok(exists('tmp/bower_components/lodash') && exists('tmp/bower_components/async'), 'Multiple components should have been installed.');
 
     test.done();
   }
